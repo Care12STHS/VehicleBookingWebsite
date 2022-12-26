@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehicleBookingWebsite.Server.Data;
 
 namespace VehicleBookingWebsite.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221226121815_addNameToUser")]
+    partial class addNameToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -328,187 +330,6 @@ namespace VehicleBookingWebsite.Server.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Contact")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StaffIDId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("StaffIDId");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.OrderVehicle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("OrderIDId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("VehicleIDId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("VehicleTypeIDId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderIDId");
-
-                    b.HasIndex("VehicleIDId");
-
-                    b.HasIndex("VehicleTypeIDId");
-
-                    b.ToTable("OrderVehicles");
-                });
-
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.Staff", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Contact")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DrivingLicenseNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Staffs");
-                });
-
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.Vehicle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Brand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Colour")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LicensePlateNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PassengerCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StaffIDId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("VehicleTypeIDId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StaffIDId");
-
-                    b.HasIndex("VehicleTypeIDId");
-
-                    b.ToTable("Vehicles");
-                });
-
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.VehicleType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VehicleTypes");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -558,66 +379,6 @@ namespace VehicleBookingWebsite.Server.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.Order", b =>
-                {
-                    b.HasOne("VehicleBookingWebsite.Shared.Domain.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("VehicleBookingWebsite.Shared.Domain.Staff", "StaffID")
-                        .WithMany()
-                        .HasForeignKey("StaffIDId");
-
-                    b.HasOne("VehicleBookingWebsite.Shared.Domain.Vehicle", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("VehicleId");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("StaffID");
-                });
-
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.OrderVehicle", b =>
-                {
-                    b.HasOne("VehicleBookingWebsite.Shared.Domain.Order", "OrderID")
-                        .WithMany()
-                        .HasForeignKey("OrderIDId");
-
-                    b.HasOne("VehicleBookingWebsite.Shared.Domain.Vehicle", "VehicleID")
-                        .WithMany()
-                        .HasForeignKey("VehicleIDId");
-
-                    b.HasOne("VehicleBookingWebsite.Shared.Domain.VehicleType", "VehicleTypeID")
-                        .WithMany()
-                        .HasForeignKey("VehicleTypeIDId");
-
-                    b.Navigation("OrderID");
-
-                    b.Navigation("VehicleID");
-
-                    b.Navigation("VehicleTypeID");
-                });
-
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.Vehicle", b =>
-                {
-                    b.HasOne("VehicleBookingWebsite.Shared.Domain.Staff", "StaffID")
-                        .WithMany()
-                        .HasForeignKey("StaffIDId");
-
-                    b.HasOne("VehicleBookingWebsite.Shared.Domain.VehicleType", "VehicleTypeID")
-                        .WithMany()
-                        .HasForeignKey("VehicleTypeIDId");
-
-                    b.Navigation("StaffID");
-
-                    b.Navigation("VehicleTypeID");
-                });
-
-            modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.Vehicle", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

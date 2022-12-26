@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VehicleBookingWebsite.Server.Models;
+using VehicleBookingWebsite.Shared.Domain;
 
 namespace VehicleBookingWebsite.Server.Data
 {
@@ -17,5 +18,11 @@ namespace VehicleBookingWebsite.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Staff> Staffs { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderVehicle> OrderVehicles { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<VehicleType> VehicleTypes { get; set; }
     }
 }
