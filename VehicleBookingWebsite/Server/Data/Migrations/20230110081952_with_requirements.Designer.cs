@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehicleBookingWebsite.Server.Data;
 
 namespace VehicleBookingWebsite.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230110081952_with_requirements")]
+    partial class with_requirements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -512,26 +514,6 @@ namespace VehicleBookingWebsite.Server.Data.Migrations
                     b.HasIndex("VehicleTypeIDId");
 
                     b.ToTable("Vehicles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Brand = "Toyota",
-                            Colour = "Black",
-                            LicensePlateNumber = "SMC1234C",
-                            PassengerCapacity = 4,
-                            Year = 2023
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Brand = "Mercedes-Benz CLA-Class Coupe",
-                            Colour = "Red",
-                            LicensePlateNumber = "SMC5678C",
-                            PassengerCapacity = 4,
-                            Year = 2023
-                        });
                 });
 
             modelBuilder.Entity("VehicleBookingWebsite.Shared.Domain.VehicleType", b =>

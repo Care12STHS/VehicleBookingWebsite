@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VehicleBookingWebsite.Server.Configurations.Entities;
 using VehicleBookingWebsite.Server.Models;
 using VehicleBookingWebsite.Shared.Domain;
 
@@ -24,5 +25,12 @@ namespace VehicleBookingWebsite.Server.Data
         public DbSet<OrderVehicle> OrderVehicles { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new VehicleSeedConfiguration());
+        }
     }
 }
