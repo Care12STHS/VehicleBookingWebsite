@@ -13,78 +13,78 @@ namespace VehicleBookingWebsite.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehiclesController : ControllerBase
+    public class OrdersController : ControllerBase
     {
         //Refactored
         //private readonly ApplicationDbContext context;
         private readonly IUnitOfWork _unitOfWork;
 
         //Refactored
-        //public VehiclesController(ApplicationDbContext context)
-        public VehiclesController(IUnitOfWork unitOfWork)
+        //public OrdersController(ApplicationDbContext context)
+        public OrdersController(IUnitOfWork unitOfWork)
         {
             //Refactored
             //context = context
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Vehicles
+        // GET: api/Orders
         [HttpGet]
 
         //Refactored
-        //public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
-        public async Task<IActionResult> GetVehicles()
+        //public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        public async Task<IActionResult> GetOrders()
         {
             //Refactored
-            //return await _context.Vehicles.ToListAsync();
-            var Vehicles = await _unitOfWork.Vehicles.GetAll();
-            return Ok(Vehicles);
+            //return await _context.Orders.ToListAsync();
+            var Orders = await _unitOfWork.Orders.GetAll();
+            return Ok(Orders);
         }
 
-        // GET: api/Vehicles/5
+        // GET: api/Orders/5
         [HttpGet("{id}")]
 
         //Refactored
-        //public async Task<ActionResult<Vehicle>> GetVehicle(int id)
-        public async Task<ActionResult> GetVehicle(int id)
+        //public async Task<ActionResult<Order>> GetOrder(int id)
+        public async Task<ActionResult> GetOrder(int id)
         {
             //Refactored
-            //var vehicle = await _context.Vehicles.FindAsync(id);
-            var Vehicle = await _unitOfWork.Vehicles.Get(q => q.Id == id);
+            //var order = await _context.Orders.FindAsync(id);
+            var Order = await _unitOfWork.Orders.Get(q => q.Id == id);
 
-            if (Vehicle == null)
+            if (Order == null)
             {
                 return NotFound();
             }
 
-            return Ok(Vehicle);
+            return Ok(Order);
         }
 
-        // PUT: api/Vehicles/5
+        // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehicle(int id, Vehicle vehicle)
+        public async Task<IActionResult> PutOrder(int id, Order order)
         {
-            if (id != vehicle.Id)
+            if (id != order.Id)
             {
                 return BadRequest();
             }
 
             //Refactored
-            //_context.Entry(vehicle).State = EntityState.Modified;
-            _unitOfWork.Vehicles.Update(vehicle);
+            //_context.Entry(order).State = EntityState.Modified;
+            _unitOfWork.Orders.Update(order);
 
             try
             {
                 //Refactored
                 //await _context.SaveChangesAsync();
-                _unitOfWork.Vehicles.Update(vehicle);
+                _unitOfWork.Orders.Update(order);
             }
             catch (DbUpdateConcurrencyException)
             {
                 //Refactored
-                //if (!VehicleExists(id))
-                if (!await VehicleExists(id))
+                //if (!OrderExists(id))
+                if (!await OrderExists(id))
                 {
                     return NotFound();
                 }
@@ -97,49 +97,49 @@ namespace VehicleBookingWebsite.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Vehicles
+        // POST: api/Orders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Vehicle>> PostVehicle(Vehicle vehicle)
+        public async Task<ActionResult<Order>> PostOrder(Order order)
         {
             //Refactored
-            //_context.Vehicles.Add(vehicle);
+            //_context.Orders.Add(order);
             //await _context.SaveChangesAsync();
-            await _unitOfWork.Vehicles.Insert(vehicle);
+            await _unitOfWork.Orders.Insert(order);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetVehicle", new { id = vehicle.Id }, vehicle);
+            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
 
-        // DELETE: api/Vehicles/5
+        // DELETE: api/Orders/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVehicle(int id)
+        public async Task<IActionResult> DeleteOrder(int id)
         {
             //Refactored
-            //var vehicle = await _context.Vehicles.FindAsync(id);
-            var Vehicle = await _unitOfWork.Vehicles.Get(q => q.Id == id);
-            if (Vehicle == null)
+            //var order = await _context.Orders.FindAsync(id);
+            var Order = await _unitOfWork.Orders.Get(q => q.Id == id);
+            if (Order == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //_context.Vehicles.Remove(vehicle);
+            //_context.Orders.Remove(order);
             //await _context.SaveChangesAsync();
-            await _unitOfWork.Vehicles.Delete(id);
+            await _unitOfWork.Orders.Delete(id);
             await _unitOfWork.Save(HttpContext);
 
             return NoContent();
         }
 
         //Refactored
-        //private bool VehicleExists(int id)
-        private async Task<bool> VehicleExists(int id)
+        //private bool OrderExists(int id)
+        private async Task<bool> OrderExists(int id)
         {
             //Refactored
-            //return _context.Vehicles.Any(e => e.Id == id);
-            var Vehicle = await _unitOfWork.Vehicles.Get(q => q.Id == id);
-            return Vehicle != null;
+            //return _context.Orders.Any(e => e.Id == id);
+            var Order = await _unitOfWork.Orders.Get(q => q.Id == id);
+            return Order != null;
         }
     }
 }

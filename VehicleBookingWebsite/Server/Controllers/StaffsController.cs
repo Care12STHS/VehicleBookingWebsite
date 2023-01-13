@@ -13,78 +13,78 @@ namespace VehicleBookingWebsite.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehiclesController : ControllerBase
+    public class StaffController : ControllerBase
     {
         //Refactored
         //private readonly ApplicationDbContext context;
         private readonly IUnitOfWork _unitOfWork;
 
         //Refactored
-        //public VehiclesController(ApplicationDbContext context)
-        public VehiclesController(IUnitOfWork unitOfWork)
+        //public StaffController(ApplicationDbContext context)
+        public StaffController(IUnitOfWork unitOfWork)
         {
             //Refactored
             //context = context
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Vehicles
+        // GET: api/Staff
         [HttpGet]
 
         //Refactored
-        //public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
-        public async Task<IActionResult> GetVehicles()
+        //public async Task<ActionResult<IEnumerable<Staff>>> GetStaff()
+        public async Task<IActionResult> GetStaff()
         {
             //Refactored
-            //return await _context.Vehicles.ToListAsync();
-            var Vehicles = await _unitOfWork.Vehicles.GetAll();
-            return Ok(Vehicles);
+            //return await _context.Staff.ToListAsync();
+            var Staff = await _unitOfWork.Staff.GetAll();
+            return Ok(Staff);
         }
 
-        // GET: api/Vehicles/5
+        // GET: api/Staff/5
         [HttpGet("{id}")]
 
         //Refactored
-        //public async Task<ActionResult<Vehicle>> GetVehicle(int id)
-        public async Task<ActionResult> GetVehicle(int id)
+        //public async Task<ActionResult<Staff>> GetStaff(int id)
+        public async Task<ActionResult> GetStaff(int id)
         {
             //Refactored
-            //var vehicle = await _context.Vehicles.FindAsync(id);
-            var Vehicle = await _unitOfWork.Vehicles.Get(q => q.Id == id);
+            //var staff = await _context.Staff.FindAsync(id);
+            var Staff = await _unitOfWork.Staff.Get(q => q.Id == id);
 
-            if (Vehicle == null)
+            if (Staff == null)
             {
                 return NotFound();
             }
 
-            return Ok(Vehicle);
+            return Ok(Staff);
         }
 
-        // PUT: api/Vehicles/5
+        // PUT: api/Staff/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehicle(int id, Vehicle vehicle)
+        public async Task<IActionResult> PutStaff(int id, Staff staff)
         {
-            if (id != vehicle.Id)
+            if (id != staff.Id)
             {
                 return BadRequest();
             }
 
             //Refactored
-            //_context.Entry(vehicle).State = EntityState.Modified;
-            _unitOfWork.Vehicles.Update(vehicle);
+            //_context.Entry(staff).State = EntityState.Modified;
+            _unitOfWork.Staff.Update(staff);
 
             try
             {
                 //Refactored
                 //await _context.SaveChangesAsync();
-                _unitOfWork.Vehicles.Update(vehicle);
+                _unitOfWork.Staff.Update(staff);
             }
             catch (DbUpdateConcurrencyException)
             {
                 //Refactored
-                //if (!VehicleExists(id))
-                if (!await VehicleExists(id))
+                //if (!StaffExists(id))
+                if (!await StaffExists(id))
                 {
                     return NotFound();
                 }
@@ -97,49 +97,49 @@ namespace VehicleBookingWebsite.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Vehicles
+        // POST: api/Staff
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Vehicle>> PostVehicle(Vehicle vehicle)
+        public async Task<ActionResult<Staff>> PostStaff(Staff staff)
         {
             //Refactored
-            //_context.Vehicles.Add(vehicle);
+            //_context.Staff.Add(staff);
             //await _context.SaveChangesAsync();
-            await _unitOfWork.Vehicles.Insert(vehicle);
+            await _unitOfWork.Staff.Insert(staff);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetVehicle", new { id = vehicle.Id }, vehicle);
+            return CreatedAtAction("GetStaff", new { id = staff.Id }, staff);
         }
 
-        // DELETE: api/Vehicles/5
+        // DELETE: api/Staff/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVehicle(int id)
+        public async Task<IActionResult> DeleteStaff(int id)
         {
             //Refactored
-            //var vehicle = await _context.Vehicles.FindAsync(id);
-            var Vehicle = await _unitOfWork.Vehicles.Get(q => q.Id == id);
-            if (Vehicle == null)
+            //var staff = await _context.Staff.FindAsync(id);
+            var Staff = await _unitOfWork.Staff.Get(q => q.Id == id);
+            if (Staff == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //_context.Vehicles.Remove(vehicle);
+            //_context.Staff.Remove(staff);
             //await _context.SaveChangesAsync();
-            await _unitOfWork.Vehicles.Delete(id);
+            await _unitOfWork.Staff.Delete(id);
             await _unitOfWork.Save(HttpContext);
 
             return NoContent();
         }
 
         //Refactored
-        //private bool VehicleExists(int id)
-        private async Task<bool> VehicleExists(int id)
+        //private bool StaffExists(int id)
+        private async Task<bool> StaffExists(int id)
         {
             //Refactored
-            //return _context.Vehicles.Any(e => e.Id == id);
-            var Vehicle = await _unitOfWork.Vehicles.Get(q => q.Id == id);
-            return Vehicle != null;
+            //return _context.Staff.Any(e => e.Id == id);
+            var Staff = await _unitOfWork.Staff.Get(q => q.Id == id);
+            return Staff != null;
         }
     }
 }
